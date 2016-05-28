@@ -56,6 +56,11 @@ setForegroundColor(255, 255, 255);
 
 newImage("Domain", "16-bit black", domainX, domainY, domainZ);
 
+// ---------------------------------------------------------
+// Setting image size to real scale
+// ---------------------------------------------------------
+run("Properties...", "channels=1 slices=1000 frames=1 unit=µm pixel_width="+0.001*pixel_size+" pixel_height="+0.001*pixel_size+" voxel_depth="+0.001*pixel_size);
+
 makeOval(0.5*(domainX-IMDiam), 0.5*(domainY-IMDiam), IMDiam, IMDiam);
 
 run("Fill", "stack");
@@ -109,7 +114,7 @@ for (s = 0; s < S.length; s++) {
 	run("Clear", "slice");
 }
 
-run("Save", "save="+_SaveFolder+"/OM.tif");
+run("Save", "save="+_SaveFolder+"/IM.tif");
 
 close();
 
@@ -117,6 +122,11 @@ close();
 // Generating OM Stack
 // ---------------------------------------------------------
 newImage("Domain", "16-bit black", domainX, domainY, domainZ);
+
+// ---------------------------------------------------------
+// Setting image size to real scale
+// ---------------------------------------------------------
+run("Properties...", "channels=1 slices=1000 frames=1 unit=µm pixel_width="+0.001*pixel_size+" pixel_height="+0.001*pixel_size+" voxel_depth="+0.001*pixel_size);
 
 makeOval(0.5*(domainX-OMDiam), 0.5*(domainY-OMDiam), OMDiam, OMDiam);
 
