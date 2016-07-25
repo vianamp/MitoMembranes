@@ -12,7 +12,7 @@ Open Paraview and load the two stacks create in step 1. Don't forget to hit `App
 
 #### Step 3:
 
-Load the macro SurfaceGen.py in Paraview. To do so, go to *Macros -> Add New Macro* and select the macro SurfaceGen.py. Paraview will create a button called SurfaceGen. Hi the button and the surface files are going to be generated and saved in the same folder where the stacks were load from.
+Load the macro SurfaceGen.py in Paraview. To do so, go to `Macros -> Add New Macro` and select the macro SurfaceGen.py. Paraview will create a button called SurfaceGen. Hit the new button *SurfaceGen* and the surface files are going to be generated and saved in the same folder where the stacks were load from.
 
 #### Example of the resulting meshes:
 
