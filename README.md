@@ -16,4 +16,4 @@ Load the macro SurfaceGen.py in Paraview. To do so, go to `Macros -> Add New Mac
 
 #### Example of the resulting meshes:
 
-![Mitochondrial Membranes Model](model.png)
+![Mitochondrial Membranes Model](doc/model.png)
