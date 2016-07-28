@@ -12,6 +12,6 @@ We use the method `IsInsideSurface` from the class `vtkSelectEnclosedPoints` to 
 
 ![Mitochondrial Membranes Model](doc/rw.gif)
 
-# Known bugs
+### Known bugs:
 
 The particle can get trapped in the cristae junction and the algorithm enters an infinite loop. This still have to be fixed.
