@@ -14,4 +14,4 @@ We use the method `IsInsideSurface` from the class `vtkSelectEnclosedPoints` to 
 
 ### Known bugs:
 
-The particle can get trapped in the cristae junction and the algorithm enters an infinite loop. This still have to be fixed.
+The variable `eps` defines the maximum displacement in each direction. Depending on the value of this variable, the particle can get trapped in the cristae and the algorithm enters an infinite loop. This still have to be fixed.
