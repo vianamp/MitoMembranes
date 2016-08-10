@@ -20,7 +20,7 @@ _SaveFolder = getDirectory("Choose a Directory");
 // ---------------------------------------------------------
 domainX_in_nm          =  500.0;
 domainY_in_nm          =  500.0;
-domainZ_in_nm          = 2500.0;
+domainZ_in_nm          = 1000.0;
 IMDiam_in_nm           =  250.0;
 OMDiam_in_nm           =  300.0;
 cristaeWidth_in_nm     =   12.5;
@@ -54,12 +54,14 @@ cristaeMaxRadius = round(cristaeMaxRadius_in_nm/pixel_size);
 // ---------------------------------------------------------
 setForegroundColor(255, 255, 255);
 
+//print("Domain = ("+domainX+","+domainY+","+domainZ+")");
+
 newImage("Domain", "16-bit black", domainX, domainY, domainZ);
 
 // ---------------------------------------------------------
 // Setting image size to real scale
 // ---------------------------------------------------------
-run("Properties...", "channels=1 slices=1000 frames=1 unit=µm pixel_width="+0.001*pixel_size+" pixel_height="+0.001*pixel_size+" voxel_depth="+0.001*pixel_size);
+run("Properties...", "channels=1 slices="+domainZ+" frames=1 unit=µm pixel_width="+1*pixel_size+" pixel_height="+0.001*pixel_size+" voxel_depth="+0.001*pixel_size);
 
 makeOval(0.5*(domainX-IMDiam), 0.5*(domainY-IMDiam), IMDiam, IMDiam);
 
@@ -126,7 +128,7 @@ newImage("Domain", "16-bit black", domainX, domainY, domainZ);
 // ---------------------------------------------------------
 // Setting image size to real scale
 // ---------------------------------------------------------
-run("Properties...", "channels=1 slices=1000 frames=1 unit=µm pixel_width="+0.001*pixel_size+" pixel_height="+0.001*pixel_size+" voxel_depth="+0.001*pixel_size);
+run("Properties...", "channels=1 slices="+domainZ+" frames=1 unit=µm pixel_width="+0.001*pixel_size+" pixel_height="+0.001*pixel_size+" voxel_depth="+0.001*pixel_size);
 
 makeOval(0.5*(domainX-OMDiam), 0.5*(domainY-OMDiam), OMDiam, OMDiam);
 
