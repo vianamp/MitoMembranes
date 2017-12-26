@@ -65,21 +65,31 @@ class _RNControl {
 
 int main(int argc, char *argv[]) {     
 
-    double eps = 4; // step length in nanometers
+    double eps = 0.5; // step length in nanometers
+
+    //
+    // Outer membrane
+    //
 
     vtkSmartPointer<vtkPolyDataReader> ROM = vtkSmartPointer<vtkPolyDataReader>::New();
-    ROM -> SetFileName("../../xmlgenerator/OM.vtk");
+    ROM -> SetFileName("/Users/mviana/Desktop/MitoMembranes/randomwalk/data/control/YPAD090716_0_cropCells/cell.vtk");
     ROM -> Update();
 
     vtkSmartPointer<vtkPolyData> OM = ROM -> GetOutput();
 
+    vtkSmartPointer<vtkSelectEnclosedPoints> EO = vtkSmartPointer<vtkSelectEnclosedPoints>::New();
+    EO -> SetTolerance(1E-6);
+    EO -> Initialize(OM);
+
     double B[6];
     OM -> GetBounds(B);
 
-    double rad_om = 0.5*(B[2]-B[1]);
+    //
+    // Inner membrane
+    //
 
     vtkSmartPointer<vtkPolyDataReader> RIM = vtkSmartPointer<vtkPolyDataReader>::New();
-    RIM -> SetFileName("../../xmlgenerator/IM.vtk");
+    RIM -> SetFileName("/Users/mviana/Desktop/MitoMembranes/randomwalk/data/control/YPAD090716_0_cropCells/0000_surface.vtk");
     RIM -> Update();
 
     vtkSmartPointer<vtkPolyData> IM = RIM -> GetOutput();
@@ -88,7 +98,6 @@ int main(int argc, char *argv[]) {
     EI -> SetTolerance(1E-6);
     EI -> Initialize(IM);
 
-    double rad_om2 = pow(rad_om,2);
     double xo, yo, zo, x, y, z, r;
     _RNControl RNC;
 
@@ -97,8 +106,7 @@ int main(int argc, char *argv[]) {
         xo = B[0]+(B[1]-B[0])*RNC.GetRandomProbability();
         yo = B[2]+(B[3]-B[2])*RNC.GetRandomProbability();
         zo = B[4]+(B[5]-B[4])*RNC.GetRandomProbability();
-        r = pow(250-xo,2) + pow(250-yo,2);
-    } while ( EI->IsInsideSurface(xo,yo,zo) || (r>rad_om2) );
+    } while ( EI->IsInsideSurface(xo,yo,zo) || !EO->IsInsideSurface(xo,yo,zo) );
 
     printf("Initial coordinate: %1.3f\t%1.3f\t%1.3f\n",xo,yo,zo);
 
@@ -112,8 +120,7 @@ int main(int argc, char *argv[]) {
             x = eps*(RNC.GetRandomProbability()-0.5);
             y = eps*(RNC.GetRandomProbability()-0.5);
             z = eps*(RNC.GetRandomProbability()-0.5);
-            r = pow(250-(xo+x),2) + pow(250-(yo+y),2);
-        } while ( EI->IsInsideSurface(xo+x,yo+x,zo+z) || (r>rad_om2) );
+        } while ( EI->IsInsideSurface(xo+x,yo+y,zo+z) || !EO->IsInsideSurface(xo+x,yo+y,zo+z) );
         
         xo += x; yo += y; zo += z;
 
